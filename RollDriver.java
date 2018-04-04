@@ -5,12 +5,12 @@ public class RollDriver
     public static void main(String[] args)
     {
         Scanner kb = new Scanner(System.in);
-        int userCommand = 0, exitNum = 1, userSides = 0, dieCount = 0, userResponse = 0;
+        int userCommand = 0, exitNum = 1, userSides = 0, dieCount = 0, userResponse = 0, count = 0;
         Dice[] dieSet = new Dice[7];
         String dieName = null;
         boolean isEmpty = true;
 
-        while (userCommand == 0 && exitNum == 1)
+        while (exitNum == 1)
         {
             System.out.println("Hello, welcome to Dice Roller v0.1. What would you like to do?");
             System.out.println("1: Create a new die");
@@ -20,7 +20,6 @@ public class RollDriver
             System.out.println("5: Debug");
             System.out.print("Command: ");
             userCommand = kb.nextInt();
-        }
 
         while (userCommand == 1)
         {
@@ -28,7 +27,11 @@ public class RollDriver
             {
                 System.out.print("How many sides do you want your die to be?: ");
                 userSides = kb.nextInt();
-                dieSet[dieCount] = new Dice(userSides);
+
+                System.out.print("What do you want to call it?: ");
+                System.out.println();
+                dieName = kb.next();
+                dieSet[dieCount] = new Dice(userSides,dieName);
                 dieCount++;
                 isEmpty = false;
 
@@ -43,7 +46,9 @@ public class RollDriver
                     userCommand = 0;
                 }
 
-            } else
+            }
+
+            else
             {
                 System.out.println("Hey, looks like you've hit the die cap. I'm real sorry, but I haven't implemented");
                 System.out.println("the ability to have multiple sets or change sets. Look for that in future versions.");
@@ -61,17 +66,25 @@ public class RollDriver
                 userResponse = kb.nextInt();
 
             }
+
+            if(isEmpty == false)
+            {
+                System.out.println("Which die would you like to roll?");
+                for(int i = 0; i<7; i++ )
+                {
+                    System.out.println(count + ": " + dieSet[i]);
+                }
+            }
+
             if (userResponse != 1)
             {
                 userCommand = 0;
-            }
-
-            else
+            } else
             {
                 userCommand = 1;
             }
 
-
+        }
 
         }
     }
